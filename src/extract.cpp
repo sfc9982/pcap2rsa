@@ -1,11 +1,7 @@
 #include "extract.h"
 
-#include <tracy/Tracy.hpp>
-
 
 std::vector<std::string> extract_payload(const std::string_view &payload, const std::vector<boost::regex> &regexes) {
-    ZoneScoped;
-
     std::vector<std::string> extracted;
     extracted.reserve(regexes.size());
     for (const auto &pattern : regexes) {

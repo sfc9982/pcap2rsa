@@ -5,8 +5,6 @@
 #include <fstream>
 #include <format>
 
-#include <tracy/Tracy.hpp>
-
 #include <pcapplusplus/PcapFileDevice.h>
 #include <pcapplusplus/TcpLayer.h>
 #include <pcapplusplus/HttpLayer.h>
@@ -17,8 +15,6 @@
 
 
 int get_packet_count(const std::string &pcap_path) {
-    ZoneScoped;
-
     pcpp::IFileReaderDevice *size_reader = pcpp::IFileReaderDevice::getReader(pcap_path);
 
     if (size_reader == nullptr) {

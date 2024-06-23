@@ -2,8 +2,6 @@
 #include <format>
 #include <string>
 
-#include <tracy/Tracy.hpp>
-
 #include <pcapplusplus/PcapFileDevice.h>
 
 #include <args.hxx>
@@ -30,8 +28,6 @@ void hide_cursor() {
 }
 
 int main(int argc, char *argv[]) {
-    ZoneScoped;
-
     hide_cursor();
 
     args::ArgumentParser          parser("pcap2rsa - extract parameter of HTTP from PCAP/PCAPNG files", R"(Example: ./pcap2rsa.exe -p rsa,ul,pl "D:/NeFUC/cas.03.17.pcapng" -d)");
