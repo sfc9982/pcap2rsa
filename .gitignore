@@ -396,3 +396,14 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/.edx
+/.idea
+.project
+.cproject
+/PcapPlusPlus-24.09
+settings.lua
+/boost_1_87_0
+/pcapplusplus-24.09-windows-mingw64-x86_64-gcc-14.1.0
+/npcap-sdk-1.12
+/cmake-build-*
+compile_commands.json
