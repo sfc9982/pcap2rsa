@@ -3,8 +3,9 @@ Extract HTTP payloads from PCAP/NG file
 
 ## Requirements
 
-- C++17
+- C++ 20
 - Boost
 - PcapPlusPlus
+- Npcap
 - args.hxx
 - progressbar
