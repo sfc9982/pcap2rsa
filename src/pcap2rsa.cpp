@@ -2,11 +2,9 @@
 #include <format>
 #include <string>
 
-#include <pcapplusplus/PcapFileDevice.h>
+#include <PcapFileDevice.h>
 
 #include <args.hxx>
-
-#include "progressbar.hpp"
 
 #include "packet_feature.h"
 
@@ -15,21 +13,7 @@
 #endif
 
 
-void hide_cursor() {
-#ifdef WIN32
-    const HANDLE        console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_CURSOR_INFO cci;
-    GetConsoleCursorInfo(console_handle, &cci);
-    cci.bVisible = FALSE;
-    SetConsoleCursorInfo(console_handle, &cci);
-#elif defined(__linux__)
-    std::cout << "\e[?25l";
-#endif
-}
-
 int main(int argc, char *argv[]) {
-    hide_cursor();
-
     args::ArgumentParser          parser("pcap2rsa - extract parameter of HTTP from PCAP/PCAPNG files", R"(Example: ./pcap2rsa.exe -p rsa,ul,pl "D:/NeFUC/cas.03.17.pcapng" -d)");
     args::HelpFlag                help(parser, "help", "Display this help menu", {'h', "help"});
     args::CompletionFlag          completion(parser, {"complete"});
@@ -52,7 +36,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    const std::string pcap_path   = (args::get(input_file));
+    const std::string pcap_path   = args::get(input_file);
     const std::string output_path = args::get(output_file);
 
     if (pcap_path.empty()) {

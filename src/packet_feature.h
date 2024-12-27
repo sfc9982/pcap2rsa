@@ -7,7 +7,7 @@
 
 #include <boost/regex.hpp>
 
-#include <pcapplusplus/Packet.h>
+#include <Packet.h>
 
 
 int get_packet_count(const std::string &pcap_path);
