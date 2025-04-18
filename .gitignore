@@ -406,4 +406,5 @@ settings.lua
 /boost*
 /npcap-sdk-*
 /cmake-build-*
+/build
 compile_commands.json
