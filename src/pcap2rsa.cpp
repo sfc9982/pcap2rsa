@@ -32,6 +32,12 @@ int main(int argc, char *argv[]) {
     args::ValueFlag<std::string>  output_file(parser, "output", "The name of output file", {'o', "output"}, "out.txt");
     args::Flag                    debug_mode(parser, "debug", "Display debug information and a progress bar", {'d', "debug"}, args::Options{});
 
+    auto handle_error = [&parser](const std::string &message) {
+        std::cerr << message << '\n';
+        std::cerr << parser;
+        return 1;
+    };
+
     try {
         parser.ParseCLI(argc, argv);
     } catch (const args::Completion &e) {
@@ -41,50 +47,42 @@ int main(int argc, char *argv[]) {
         std::cout << parser;
         return 0;
     } catch (const args::ParseError &e) {
-        std::cerr << e.what() << '\n';
-        std::cerr << parser;
-        return 1;
+        return handle_error(e.what());
     }
 
-    const std::string pcap_path   = args::get(input_file);
-    const std::string output_path = args::get(output_file);
-
+    const std::string pcap_path = args::get(input_file);
     if (pcap_path.empty()) {
-        std::cout << parser;
-        return 1;
+        return handle_error("Input pcap file path is empty.");
     }
 
-    const std::string parameters(args::get(arg_para));
+    const std::string output_path = args::get(output_file);
     std::ofstream     fout(output_path);
+    if (!fout.is_open()) {
+        return handle_error("Failed to open output file.");
+    }
 
-    bool debug = get(debug_mode);
+    const bool debug = get(debug_mode);
     if (debug) {
         std::cout << "Debug mode: Enabled" << '\n';
-
         if (arg_para) {
+            const std::string parameters = args::get(arg_para);
             std::cout << std::format("Parameter(s): {}", parameters) << '\n';
         }
-        if (input_file) {
-            std::cout << std::format("Input file: {}", pcap_path) << '\n';
-        }
-        if (output_file) {
-            std::cout << std::format("Output file: {}", output_path) << '\n';
-        }
+        std::cout << std::format("Input file: {}", pcap_path) << '\n';
+        std::cout << std::format("Output file: {}", output_path) << '\n';
     }
 
-    int packet_count = get_packet_count(pcap_path);
+    const int packet_count = get_packet_count(pcap_path);
     if (packet_count == -1) {
-        std::cerr << "Cannot determine packet count" << '\n';
-        return 1;
+        return handle_error("Cannot determine packet count");
     }
 
     if (debug) {
         std::cout << std::format("Total packets: {}", packet_count) << '\n';
     }
 
-    std::vector<boost::regex> pattern_regexes = get_regexes(parameters);
-
-    int processed_count = match_regex_from_reader(debug, fout, pcap_path, packet_count, pattern_regexes);
+    const std::vector<boost::regex> pattern_regexes = get_regexes(args::get(arg_para));
+    const int                       processed_count = match_regex_from_reader(debug, fout, pcap_path, packet_count, pattern_regexes);
 
     if (debug) {
         std::cout << std::format("Valid HTTP packets: {}", processed_count) << '\n'

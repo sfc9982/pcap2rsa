@@ -16,6 +16,11 @@ set(PCAP_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/npcap-sdk-1.15)
 set(Packet_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/npcap-sdk-1.15)
 set(PcapPlusPlus_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/pcapplusplus-24.09-windows-mingw64-x86_64-gcc-14.1.0)
 
+# https://cmake.org/cmake/help/latest/policy/CMP0167.html
+if(POLICY CMP0167)
+  cmake_policy(SET CMP0167 NEW)
+endif()
+
 find_package(Boost REQUIRED)
 find_package(PcapPlusPlus CONFIG REQUIRED)
 
