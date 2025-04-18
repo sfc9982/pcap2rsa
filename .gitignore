@@ -403,7 +403,7 @@ FodyWeavers.xsd
 /PcapPlusPlus-*
 /pcapplusplus-*
 settings.lua
-/boost_1_87_0
-/npcap-sdk-1.12
+/boost*
+/npcap-sdk-*
 /cmake-build-*
 compile_commands.json

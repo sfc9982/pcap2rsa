@@ -11,9 +11,9 @@ set(TARGET_NAME pcap2rsa)
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD 20)
 
-set(Boost_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/boost_1_87_0/output)
-set(PCAP_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/npcap-sdk-1.12)
-set(Packet_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/npcap-sdk-1.12)
+set(Boost_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/boost_1_88_0/output)
+set(PCAP_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/npcap-sdk-1.15)
+set(Packet_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/npcap-sdk-1.15)
 set(PcapPlusPlus_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/pcapplusplus-24.09-windows-mingw64-x86_64-gcc-14.1.0)
 
 find_package(Boost REQUIRED)
