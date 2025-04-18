@@ -13,6 +13,16 @@
 #endif
 
 
+/**
+ * @brief The entry point of the pcap2rsa program.
+ * 
+ * This function parses command-line arguments, validates the input, 
+ * extracts HTTP parameters from a PCAP/PCAPNG file, and writes the results to an output file.
+ * 
+ * @param argc The number of command-line arguments.
+ * @param argv An array of strings containing the command-line arguments.
+ * @return int Returns 0 on success, non-zero on failure.
+ */
 int main(int argc, char *argv[]) {
     args::ArgumentParser          parser("pcap2rsa - extract parameter of HTTP from PCAP/PCAPNG files", R"(Example: ./pcap2rsa.exe -p rsa,ul,pl "D:/NeFUC/cas.03.17.pcapng" -d)");
     args::HelpFlag                help(parser, "help", "Display this help menu", {'h', "help"});
